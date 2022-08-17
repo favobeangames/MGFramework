@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 
 namespace FavobeanGames.DataStructures.Geometry
 {
-    public class Polygon : Geometry
+    public class 
+        Polygon : Geometry
     {
         public List<Line> Lines;
 

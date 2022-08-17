@@ -1,6 +1,5 @@
 ﻿using FavobeanGames.Components;
 using Microsoft.Xna.Framework;
-using tainicom.Aether.Physics2D.Collision.Shapes;
 
 namespace FavobeanGames.DataStructures.Geometry
 {
@@ -8,9 +7,6 @@ namespace FavobeanGames.DataStructures.Geometry
     {
         // Radius of circle
         public float Radius;
-
-        // Circle geometry for physics collision detection
-        private CircleShape circleShape;
         
         public Circle()
         {
@@ -20,8 +16,6 @@ namespace FavobeanGames.DataStructures.Geometry
         {
             CenterPoint = center;
             Radius = radius;
-            circleShape = new CircleShape(radius, 1);
-            circleShape.Position = center;
             InitializeSprite();
         }
 

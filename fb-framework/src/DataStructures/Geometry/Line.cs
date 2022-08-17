@@ -29,6 +29,7 @@ namespace FavobeanGames.DataStructures.Geometry
         public void UpdatePoint(int pointIndex, Vector2 point)
         {
             Points[pointIndex].CenterPoint = point;
+            // Updates the sprite to reflect the new point
             InitializeSprite();
         }
 
@@ -49,6 +50,10 @@ namespace FavobeanGames.DataStructures.Geometry
 
         #endregion
 
+        #region Helpers
+
+        #endregion
+        
         #region Sprite Functions
 
         public override void InitializeSprite()
