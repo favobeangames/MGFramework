@@ -16,25 +16,8 @@ namespace FavobeanGames.DataStructures.Geometry
         {
             CenterPoint = center;
             Radius = radius;
-            InitializeSprite();
         }
-
-        #region Sprite Functions
-
-        public override void InitializeSprite()
-        {
-            Sprite = new Sprite();
-            Sprite.Texture = TextureCreator.CreateCircle((int) Radius, Color.White);
-            Sprite.SourceRect = Sprite.Texture.Bounds;
-            Sprite.Position = CenterPoint;
-            Sprite.Color = Color.White;
-            Sprite.Origin = new Vector2(
-                Sprite.Texture.Bounds.Width / 2,
-                Sprite.Texture.Bounds.Height / 2);
-        }
-
-        #endregion
-
+        
         #region Collision
 
         public override bool CollidesWith(Vector2 point)

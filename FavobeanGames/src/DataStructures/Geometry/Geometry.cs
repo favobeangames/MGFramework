@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using FavobeanGames.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,9 +21,7 @@ namespace FavobeanGames.DataStructures.Geometry
     {
         public Vector2 CenterPoint;
         public List<Point> Points;
-
-        protected Sprite Sprite;
-
+        
         public Geometry()
         {
         }
@@ -36,8 +35,6 @@ namespace FavobeanGames.DataStructures.Geometry
         {
             foreach (var point in points) Points.Add(point);
         }
-
-        public bool ArePointsVisible { get; set; }
 
         public virtual void Initialize()
         {
@@ -87,45 +84,8 @@ namespace FavobeanGames.DataStructures.Geometry
 
         #endregion
 
-        #region Sprite Functions
-
-        /// <summary>
-        ///     If we want to draw the geometry shape we need to initialize
-        ///     the sprite object
-        /// </summary>
-        public virtual void InitializeSprite()
-        {
-            Sprite = new Sprite();
-        }
-
-        public virtual void UpdateSprite(GameTime gameTime)
-        {
-            if (Sprite != null) Sprite.Update(gameTime);
-        }
-
-        public virtual void DrawSprite(SpriteBatch spriteBatch)
-        {
-            if (Sprite != null) Sprite.Draw(spriteBatch);
-        }
-
-        public virtual void DrawPoints(SpriteBatch spriteBatch)
-        {
-            if (Points == null) return;
-
-            foreach (var point in Points) point.DrawSprite(spriteBatch);
-        }
-
-        #endregion
-
         #region Helpers
 
-        /// <summary>
-        /// Initializes physics geometry to be used for collisions.
-        /// </summary>
-        public virtual void InitializeGeometry()
-        {
-        }
-        
         public virtual void InitializePoints(Vector2[] points)
         {
             Points = new List<Point>();
@@ -133,13 +93,12 @@ namespace FavobeanGames.DataStructures.Geometry
         }
 
         /// <summary>
-        /// Looks at all points and updates any positional changes
+        /// Returns Axis Aligned Bounding Box for the geometry
         /// </summary>
-        public virtual void UpdatePoints()
+        /// <returns>Rectangle</returns>
+        public RectangleF AABB()
         {
-            if (Points == null) return;
-
-            foreach (var point in Points) point.Sprite.Position = point.CenterPoint;
+            return new RectangleF(5, 4, 2, 3);
         }
 
         #endregion
