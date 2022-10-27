@@ -29,8 +29,6 @@ namespace FavobeanGames.DataStructures.Geometry
         public void UpdatePoint(int pointIndex, Vector2 point)
         {
             Points[pointIndex].CenterPoint = point;
-            // Updates the sprite to reflect the new point
-            InitializeSprite();
         }
 
         #region Helpers
@@ -51,36 +49,6 @@ namespace FavobeanGames.DataStructures.Geometry
         #endregion
 
         #region Helpers
-
-        #endregion
-        
-        #region Sprite Functions
-
-        public override void InitializeSprite()
-        {
-            base.InitializeSprite();
-            lineWidth = new Rectangle(
-                (int) Points[0].CenterPoint.X,
-                (int) Points[0].CenterPoint.Y,
-                (int) Vector2.Distance(Points[0].CenterPoint, Points[1].CenterPoint),
-                1);
-            Sprite.Rotation = (float) Algorithms.GetVectorDirection(Points[0].CenterPoint, Points[1].CenterPoint);
-        }
-
-        public override void DrawSprite(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(
-                TextureCreator.PixelTexture,
-                lineWidth,
-                TextureCreator.PixelTexture.Bounds,
-                Sprite.Color,
-                Sprite.Rotation,
-                Sprite.Origin,
-                Sprite.SpriteEffect,
-                Sprite.Depth);
-
-            if (ArePointsVisible) DrawPoints(spriteBatch);
-        }
 
         #endregion
 

@@ -13,7 +13,6 @@ namespace FavobeanGames.DataStructures.Geometry
         {
             CenterPoint = point;
             Radius = radius;
-            InitializeSprite();
         }
     }
 }
