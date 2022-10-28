@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.DataStructures.Primitives
+namespace FavobeanGames.Framework.DataStructures.Primitives
 {
     /// <summary>
     ///     Object that represents a 2D ray. Origin and Direction

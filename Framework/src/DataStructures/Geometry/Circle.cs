@@ -1,7 +1,7 @@
 ﻿using FavobeanGames.Components;
 using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.DataStructures.Geometry
+namespace FavobeanGames.Framework.DataStructures.Geometry
 {
     public class Circle : Geometry
     {

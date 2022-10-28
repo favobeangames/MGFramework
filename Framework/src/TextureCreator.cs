@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using FavobeanGames.DataStructures.Geometry;
+using FavobeanGames.Framework.DataStructures.Geometry;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FavobeanGames
+namespace FavobeanGames.Framework
 {
     public static class TextureCreator
     {

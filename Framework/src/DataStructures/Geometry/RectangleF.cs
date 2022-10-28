@@ -1,4 +1,4 @@
-﻿namespace FavobeanGames.DataStructures.Geometry;
+﻿namespace FavobeanGames.Framework.DataStructures.Geometry;
 
 public class RectangleF
 {

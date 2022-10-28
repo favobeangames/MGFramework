@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace FavobeanGames.DataStructures.Geometry
+namespace FavobeanGames.Framework.DataStructures.Geometry
 {
     /// <summary>
     ///     It's a line... Inherits from MathNet.Spatial.Euclidean.Line2D

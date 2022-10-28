@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using FavobeanGames.DataStructures.Primitives;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 

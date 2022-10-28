@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FavobeanGames.DataStructures.Collections
+namespace FavobeanGames.Framework.DataStructures.Collections
 {
     /// <summary>
     ///     List that caches game objects stored for reuseability

@@ -4,7 +4,7 @@ using FavobeanGames.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FavobeanGames.DataStructures.Geometry
+namespace FavobeanGames.Framework.DataStructures.Geometry
 {
     public enum geometryType
     {

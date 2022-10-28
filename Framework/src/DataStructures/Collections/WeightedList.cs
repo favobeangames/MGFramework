@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FavobeanGames.DataStructures.Collections
+namespace FavobeanGames.Framework.DataStructures.Collections
 {
     /// <summary>
     ///     List that allows for weights to be passed with objects added to collection.

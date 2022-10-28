@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.DataStructures.Geometry
+namespace FavobeanGames.Framework.DataStructures.Geometry
 {
     public class 
         Polygon : Geometry

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FavobeanGames.DataStructures.Geometry
+namespace FavobeanGames.Framework.DataStructures.Geometry
 {
     public class Multiline : Geometry
     {

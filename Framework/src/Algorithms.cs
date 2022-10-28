@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace FavobeanGames
+namespace FavobeanGames.Framework
 {
     public static class Algorithms
     {
