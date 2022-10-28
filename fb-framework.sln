@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib", "lib\lib.csproj", "{586E18E3-7676-4B64-B6AA-F3ED5CA63C19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fb-framework", "fb-framework\fb-framework.csproj", "{586E18E3-7676-4B64-B6AA-F3ED5CA63C19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-sandbox", "test-sandbox\test-sandbox.csproj", "{8A2A3D96-0269-4A61-A2E8-8E3248781447}"
 EndProject

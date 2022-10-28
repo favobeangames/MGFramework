@@ -8,4 +8,7 @@
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="src\Graphics\Primitives" />
+    </ItemGroup>
 </Project>
