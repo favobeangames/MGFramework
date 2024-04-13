@@ -3,7 +3,7 @@ using FavobeanGames.MGFramework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FavobeanGames.MGFramework.Screen;
+namespace FavobeanGames.MGFramework;
 
 public class GameWindow: IDisposable
 {

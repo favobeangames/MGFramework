@@ -1,8 +1,7 @@
-﻿using FavobeanGames.MGFramework.Cameras;
+﻿using FavobeanGames.MGFramework.CameraSystem;
 using FavobeanGames.MGFramework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GameWindow = FavobeanGames.MGFramework.Screen.GameWindow;
 
 namespace FavobeanGames.MGFramework.ECS;
 

@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dbaa09f1_002Df571_002D4575_002D8f81_002D766386c84696/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestDotProduct" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestDotProduct&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f4274337_002Dff7c_002D4ab7_002Da9c3_002Dedd34e7c5740/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestDotProduct #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestDotProduct&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

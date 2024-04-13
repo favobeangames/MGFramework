@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FavobeanGames.MGFramework.CameraSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using GameWindow = FavobeanGames.MGFramework.Components.GameWindow;
-using FavobeanGames.MGFramework.Camera;
 
 namespace FavobeanGames.MGFramework.Input
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FavobeanGames.Components;
-using FavobeanGames.MGFramework.Camera;
+using FavobeanGames.MGFramework.CameraSystem;
+using FavobeanGames.MGFramework.CameraSystem.Camera;
 using FavobeanGames.MGFramework.Components;
 using Microsoft.Xna.Framework;
 

@@ -1,12 +1,12 @@
 ﻿using System;
 using FavobeanGames.MGFramework.Components;
 using FavobeanGames.MGFramework.Math;
+using FavobeanGames.MGFramework.Screen;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Tweening;
-using GameWindow = FavobeanGames.MGFramework.Components.GameWindow;
 
-namespace FavobeanGames.MGFramework.Camera
+namespace FavobeanGames.MGFramework.CameraSystem
 {
     /// <summary>
     /// Camera object
@@ -167,7 +167,7 @@ namespace FavobeanGames.MGFramework.Camera
         }
         public void MoveTo(Vector2 newPostion)
         {
-            Position = Algorithms.ApplyInterpolation(Position, newPostion, .1f, EasingFunctions.Linear);
+            Position = newPostion;
         }
 
         public void IncrementZoom()

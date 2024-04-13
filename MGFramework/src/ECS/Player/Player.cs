@@ -1,5 +1,4 @@
-﻿using FavobeanGames.Components;
-using FavobeanGames.MGFramework.Camera;
+﻿using FavobeanGames.MGFramework.CameraSystem;
 using FavobeanGames.MGFramework.Components;
 
 namespace FBFramework.Components.Player;

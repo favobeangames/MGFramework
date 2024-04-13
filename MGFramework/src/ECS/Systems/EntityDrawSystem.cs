@@ -1,4 +1,6 @@
-﻿using FavobeanGames.MGFramework.DataStructures.Collections;
+﻿using FavobeanGames.MGFramework.Components;
+using FavobeanGames.MGFramework.DataStructures.Collections;
+using FavobeanGames.MGFramework.ECS;
 using FavobeanGames.MGFramework.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,12 +17,7 @@ public class EntityDrawSystem: EntitySystem, IDrawSystem
         graphicsBatch = new GraphicsBatch(graphicsDevice);
     }
 
-    public virtual void Draw(params Entity[] entities)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void Draw(EntityList entities)
+    public void Draw(params Entity[] entities)
     {
         throw new System.NotImplementedException();
     }
