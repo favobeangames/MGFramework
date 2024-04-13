@@ -1,4 +1,4 @@
-﻿namespace FavobeanGames.MGFramework.Camera;
+﻿namespace FavobeanGames.MGFramework;
 
 /// <summary>
 /// Projection type of the camera.

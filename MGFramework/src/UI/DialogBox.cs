@@ -1,4 +1,4 @@
-﻿namespace FavobeanGames.Components.UI;
+﻿namespace FavobeanGames.MGFramework.UI;
 
 public class DialogBox
 {

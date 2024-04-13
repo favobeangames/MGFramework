@@ -1,4 +1,4 @@
-﻿namespace FavobeanGames.MGFramework.Components;
+﻿namespace FavobeanGames.MGFramework.ECS;
 
 public class GameWorldBuilder
 {
@@ -9,7 +9,7 @@ public class GameWorldBuilder
         gameWorld = new GameWorld();
     }
 
-    public GameWorldBuilder AddSystem(EntitySystem gameSystem)
+    public GameWorldBuilder AddSystem(IGameSystem gameSystem)
     {
         gameWorld.AddSystem(gameSystem);
         return this;

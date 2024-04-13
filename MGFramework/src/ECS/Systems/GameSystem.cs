@@ -1,67 +1,96 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using MonoGame.Extended.Collections;
 
 namespace FavobeanGames.MGFramework.ECS;
 
-public class GameSystem : IGameSystem
+public abstract class GameSystem : IGameSystem
 {
+    private const int entityCapacity = 128;
+
     protected GameWorld gameWorld;
-    protected List<Entity> activeEntities;
+    protected EntitySystem entitySystem;
+
+    private bool entitiesUpdated;
+    private Bag<int> activeEntities;
+
+    public Bag<int> ActiveEntities
+    {
+        get
+        {
+            if (entitiesUpdated)
+                UpdateActiveEntities();
+
+            return activeEntities;
+        }
+    }
 
     /// <summary>
     /// Aspects store the types of components that we want the entities
     /// of the system to deal with
     /// </summary>
-    private readonly Aspect entityAspect;
+    private Aspect entityAspect;
 
-    protected EntitySystem()
+    private AspectBuilder aspectBuilder;
+
+    protected GameSystem()
     {
-        activeEntities = new List<Entity>();
-        entityAspect = new Aspect();
+        activeEntities = new Bag<int>(entityCapacity);
     }
-    protected EntitySystem(Aspect aspect)
+    protected GameSystem(AspectBuilder builder)
     {
-        activeEntities = new List<Entity>();
-        entityAspect = aspect;
+        activeEntities = new Bag<int>(entityCapacity);
+        aspectBuilder = builder;
     }
 
-    public void SetWorld(GameWorld world)
+    public virtual void Initialize(GameWorld gameWorld)
     {
-        gameWorld = world;
+        this.gameWorld = gameWorld;
+
+        if (aspectBuilder == null)
+        {
+            entityAspect = new Aspect();
+        }
+        else
+        {
+            entityAspect = aspectBuilder.Build();
+        }
+        entityAspect.Initialize(gameWorld.ComponentService);
+        entitySystem = gameWorld.EntitySystem;
+
+        entitySystem.EntityAdded += OnEntityAdded;
+        entitySystem.EntityUpdated += OnEntityUpdated;
+        entitySystem.EntityDestroyed += OnEntityDestroyed;
+
+        Initialize(gameWorld.ComponentService);
     }
+
+    protected abstract void Initialize(IComponentService componentService);
 
     /// <summary>
     /// Updates the systems list of active entities.
     /// Used on initialization and when entities are updated
     /// </summary>
     /// <param name="entities"></param>
-    public void SetActiveEntities(IEnumerable<Entity> entities)
+    public void UpdateActiveEntities()
     {
-        var updated = entities?
-            .Where(EntityContainsAspectComponents)
-            .ToList();
+        activeEntities.Clear();
 
-        activeEntities = updated;
+        foreach (var entity in entitySystem.Entities)
+        {
+            var id = entity.Id;
+            if (entityAspect.CheckValidEntity(id))
+                activeEntities.Add(id);
+        }
     }
 
-    /// <summary>
-    /// Checks to see if the entity contains a component contained in the systems aspect
-    /// Used to filter the game worlds entities into a subset that this system cares about
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <returns></returns>
-    private bool EntityContainsAspectComponents(Entity entity)
-    {
-        var c = entity.Components.FindAll(c => entityAspect.Components.Any(ct => ct == c.Type));
-        return c?.Count > 0;
-    }
+    protected Entity GetEntity(int entityId) => gameWorld.GetEntity(entityId);
+    protected Entity CreateEntity() => gameWorld.CreateEntity();
+    protected void DestroyEntity(int entityId) => gameWorld.DestroyEntity(entityId);
 
-    /// <summary>
-    /// Creates a new entity object in the world and returns it
-    /// </summary>
-    /// <returns>New Entity object</returns>
-    protected Entity CreateEntity()
+    protected virtual void OnEntityAdded(int entityId)
     {
-        return gameWorld.CreateEntity();
+        if (entityAspect.CheckValidEntity(entityId))
+            activeEntities.Add(entityId);
     }
+    protected virtual void OnEntityUpdated(int entityId) => entitiesUpdated = true;
+    protected virtual void OnEntityDestroyed(int entityId) => entitiesUpdated = true;
 }

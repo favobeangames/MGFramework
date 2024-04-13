@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace FavobeanGames.MGFramework.Graphics.Primitives;
 
-public class Line : Primitive
+public class Line : Shape
 {
     private float thickness;
 
@@ -28,7 +28,7 @@ public class Line : Primitive
         ShapeType = ShapeType.Line;
     }
 
-    public override void Draw(PrimitiveBatch primitiveBatch)
+    public override void Draw(ShapeBatch shapeBatch)
     {
         if (Geometry.Vertices is null)
         {
@@ -40,7 +40,7 @@ public class Line : Primitive
 
         for (int i = 0; i <= Geometry.Vertices.Length - 2; i++)
         {
-            primitiveBatch.DrawLine(Geometry.Vertices[i], Geometry.Vertices[i+1], thickness, FillColor);
+            shapeBatch.DrawLine(Geometry.Vertices[i], Geometry.Vertices[i+1], thickness, FillColor);
         }
     }
 }

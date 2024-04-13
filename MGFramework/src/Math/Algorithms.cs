@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using MonoGame.Extended.Tweening;
 using SysMath = System.Math;
 
 namespace FavobeanGames.MGFramework.Math
@@ -39,21 +41,38 @@ namespace FavobeanGames.MGFramework.Math
         }
 
         /// <summary>
-        ///     Returns point along the slope between two points by the percentage of the weight
-        ///     x = start + (destination - start) * weight
+        /// Returns point along the slope between two points by the percentage of the weight
+        /// x = easingFunc(start + (destination - start) * weight)
         /// </summary>
         /// <param name="start">Starting point</param>
         /// <param name="destination">Desination point</param>
         /// <param name="weight">Percentage we want to interpolate (0 - 1)</param>
+        /// <param name="easingFunc">Easing function to apply to the Interpolation</param>
         /// <returns></returns>
-        public static Vector2 LinearInterpolation(Vector2 start, Vector2 destination, float weight)
+        public static Vector2 ApplyInterpolation(Vector2 start, Vector2 destination, float weight, Func<float, float> easingFunc = null)
         {
-            return start + (destination - start) * weight;
+            if (easingFunc is null)
+            {
+                easingFunc = EasingFunctions.Linear;
+            }
+            return start + (destination - start) * easingFunc(weight);
         }
 
-        public static double LinearInterpolation(double start, double destination, float weight)
+        /// <summary>
+        /// Returns the interpolated value between two values by the weight. Modified by a easing function
+        /// </summary>
+        /// <param name="start">Starting value</param>
+        /// <param name="destination">Ending value</param>
+        /// <param name="weight">Percentage we want to interpolate (0 - 1)</param>
+        /// <param name="easingFunc">Easing function to apply to the Interpolation</param>
+        /// <returns>New interpolated value</returns>
+        public static float ApplyInterpolation(float start, float destination, float weight, Func<float, float> easingFunc = null)
         {
-            return start + (destination - start) * weight;
+            if (easingFunc is null)
+            {
+                easingFunc = EasingFunctions.Linear;
+            }
+            return start + (destination - start) * easingFunc(weight);
         }
 
         /// <summary>

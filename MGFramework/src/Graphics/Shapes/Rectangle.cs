@@ -2,7 +2,7 @@
 
 namespace FavobeanGames.MGFramework.Graphics.Primitives;
 
-public class Rectangle : Primitive
+public class Rectangle : Shape
 {
     private int width;
     private int height;
@@ -21,8 +21,8 @@ public class Rectangle : Primitive
         FillColor = fillColor;
     }
 
-    public override void Draw(PrimitiveBatch primitiveBatch)
+    public override void Draw(ShapeBatch shapeBatch)
     {
-        primitiveBatch.DrawRectangle(position.X, position.Y, width, height, FillColor);
+        shapeBatch.DrawRectangle(position.X, position.Y, width, height, FillColor);
     }
 }

@@ -2,10 +2,15 @@
 
 namespace FavobeanGames.MGFramework.ECS;
 
-public class Component<T>
+public abstract class Component
+{
+    public Type Type { get; protected set; }
+}
+
+public class Component<T> : Component
+    where T : class
 {
     public readonly T Value;
-    public readonly Type Type;
 
     public Component(T value)
     {

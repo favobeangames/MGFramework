@@ -1,4 +1,4 @@
-﻿namespace FavobeanGames.Components.UI;
+﻿namespace FavobeanGames.MGFramework.UI;
 
 /// <summary>
 /// Window can contain UI elements or information for the player

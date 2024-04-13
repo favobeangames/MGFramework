@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using FavobeanGames.MGFramework.Cameras;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using GameWindow = FavobeanGames.MGFramework.Components.GameWindow;
-using FavobeanGames.MGFramework.Camera;
 
 namespace FavobeanGames.MGFramework.Input
 {
@@ -29,15 +29,24 @@ namespace FavobeanGames.MGFramework.Input
         /// </summary>
         private GameWindow gameWindow;
 
+        /// <summary>
+        /// Control mappings for the input manager
+        /// </summary>
+        public readonly InputControlMapping ControlMapping;
+
+        public event Action MouseClicked;
+
         // TODO: Need to figure out a component to manage known InputControls
         public InputManager()
         {
+            ControlMapping = new InputControlMapping();
         }
 
         public InputManager(Camera camera, GameWindow gameWindow)
         {
             this.camera = camera;
             this.gameWindow = gameWindow;
+            ControlMapping = new InputControlMapping();
         }
         public InputManager(Camera camera, GameWindow gameWindow, int playerIndex)
         {
@@ -58,6 +67,8 @@ namespace FavobeanGames.MGFramework.Input
             currentKeyboardState = Keyboard.GetState();
             currentGamePadState = GamePad.GetState(PlayerIndex);
             currentMouseState = Mouse.GetState();
+
+            if (MouseLeftButtonPressed()) OnMouseClicked();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -260,5 +271,10 @@ namespace FavobeanGames.MGFramework.Input
         }
 
         #endregion
+
+        protected virtual void OnMouseClicked()
+        {
+            MouseClicked?.Invoke();
+        }
     }
 }

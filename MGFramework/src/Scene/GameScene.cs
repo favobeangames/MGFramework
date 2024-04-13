@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using FavobeanGames.Components;
-using FavobeanGames.MGFramework.Camera;
-using FavobeanGames.MGFramework.Components;
+using FavobeanGames.MGFramework.Cameras;
 using Microsoft.Xna.Framework;
 
 namespace FBFramework.Scenes;
@@ -11,8 +9,6 @@ namespace FBFramework.Scenes;
 /// </summary>
 public class GameScene
 {
-    public readonly GameScreen GameScreen;
-
     /// <summary>
     /// Flag to determine if all steps on the scene have finished
     /// </summary>
@@ -21,9 +17,8 @@ public class GameScene
     private List<SceneStep> sceneSteps;
     private SceneStep currentStep;
 
-    public GameScene(GameScreen screen, Camera camera)
+    public GameScene(Camera camera)
     {
-        GameScreen = screen;
         sceneSteps = new List<SceneStep>();
     }
 

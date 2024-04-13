@@ -1,8 +1,8 @@
 ﻿using FavobeanGames.MGFramework.Cameras;
 using FavobeanGames.MGFramework.Graphics;
+using FavobeanGames.MGFramework.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GameWindow = FavobeanGames.MGFramework.Screen.GameWindow;
 
 namespace FavobeanGames.MGFramework.ECS;
 
@@ -11,15 +11,19 @@ namespace FavobeanGames.MGFramework.ECS;
 /// </summary>
 public class BaseRenderSystem : EntityDrawSystem
 {
-    private readonly Game game;
+    protected readonly Game game;
 
     private bool gameWindowIsSet;
-    private readonly GameWindow gameWindow;
-    private Camera camera;
+    protected readonly GameWindow gameWindow;
+    protected Camera camera;
 
-    private GraphicsDevice graphicsDevice;
-    private GraphicsBatch graphicsBatch;
-    private GraphicsRenderingOptions graphicsRenderingOptions;
+    protected GraphicsDevice graphicsDevice;
+    protected GraphicsBatch graphicsBatch;
+    protected GraphicsRenderingOptions graphicsRenderingOptions;
+
+    protected ComponentMapper<Sprite> spriteMapper;
+    protected ComponentMapper<Polygon> polygonMapper;
+    protected ComponentMapper<Circle> circleMapper;
 
     /// <summary>
     /// Flag, when enabled will show the bounding box, and velocity direction of the graphic
@@ -27,7 +31,7 @@ public class BaseRenderSystem : EntityDrawSystem
     public bool DebugMode { get; set; }
 
     public BaseRenderSystem(Game game, int screenWidth, int screenHeight, GraphicsRenderingOptions graphicsRenderingOptions)
-        :base (Aspect.SetAspect(typeof(Graphic)))
+        :base (Aspect.Any(typeof(Sprite), typeof(Shape)))
     {
         this.game = game;
         gameWindow = new GameWindow(game, screenWidth, screenHeight);
@@ -38,7 +42,7 @@ public class BaseRenderSystem : EntityDrawSystem
     }
 
     public BaseRenderSystem(Game game, GameWindow gameWindow, GraphicsRenderingOptions graphicsRenderingOptions)
-        :base (Aspect.SetAspect(typeof(Graphic)))
+        :base (Aspect.Any(typeof(Sprite), typeof(Polygon), typeof(Circle)))
     {
         this.game = game;
         this.gameWindow = gameWindow;
@@ -46,6 +50,24 @@ public class BaseRenderSystem : EntityDrawSystem
         graphicsDevice = game.GraphicsDevice;
         graphicsBatch = new GraphicsBatch(graphicsDevice);
         this.graphicsRenderingOptions = graphicsRenderingOptions ?? GraphicsRenderingOptions.DefaultRenderingOptions;
+    }
+
+    public BaseRenderSystem(Game game, GameWindow gameWindow, GraphicsRenderingOptions graphicsRenderingOptions, AspectBuilder builder)
+        :base (builder)
+    {
+        this.game = game;
+        this.gameWindow = gameWindow;
+
+        graphicsDevice = game.GraphicsDevice;
+        graphicsBatch = new GraphicsBatch(graphicsDevice);
+        this.graphicsRenderingOptions = graphicsRenderingOptions ?? GraphicsRenderingOptions.DefaultRenderingOptions;
+    }
+
+    protected override void Initialize(IComponentService componentService)
+    {
+        spriteMapper = componentService.GetMapper<Sprite>();
+        polygonMapper = componentService.GetMapper<Polygon>();
+        circleMapper = componentService.GetMapper<Circle>();
     }
 
     /// <summary>
@@ -105,11 +127,6 @@ public class BaseRenderSystem : EntityDrawSystem
         camera = null;
     }
 
-    public void Draw(Entity entity)
-    {
-        // graphicsBatch.Draw(entity.Graphic);
-    }
-
     public void Draw(params Graphic[] graphics)
     {
         graphicsDevice.Clear(Color.Black);
@@ -128,7 +145,8 @@ public class BaseRenderSystem : EntityDrawSystem
         UnSetWindow();
         PresentWindow();
     }
-    public override void Draw(params Entity[] entities)
+
+    public override void Draw()
     {
         graphicsDevice.Clear(Color.Black);
 
@@ -136,9 +154,18 @@ public class BaseRenderSystem : EntityDrawSystem
 
         graphicsBatch.Begin(camera);
 
-        foreach (Entity entity in entities)
+        foreach (var entityId in ActiveEntities)
         {
-            entity.Draw(graphicsBatch);
+            var sprite = spriteMapper.Get(entityId);
+            var polygon = polygonMapper.Get(entityId);
+            var circle = circleMapper.Get(entityId);
+
+            if (sprite != null)
+                graphicsBatch.Draw(sprite);
+            if (polygon != null)
+                graphicsBatch.Draw(polygon);
+            if (circle != null)
+                graphicsBatch.Draw(circle);
         }
 
         graphicsBatch.End();

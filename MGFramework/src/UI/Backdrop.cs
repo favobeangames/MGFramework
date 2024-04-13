@@ -2,7 +2,7 @@
 using FavobeanGames.MGFramework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.Components.UI;
+namespace FavobeanGames.MGFramework.UI;
 
 public class Backdrop : Graphic
 {
@@ -13,5 +13,9 @@ public class Backdrop : Graphic
     {
 
     }
-    
+
+    public override MonoGame.Extended.RectangleF GetAABB()
+    {
+        throw new System.NotImplementedException();
+    }
 }

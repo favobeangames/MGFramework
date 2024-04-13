@@ -12,9 +12,32 @@ public static class VectorHelper
     /// </summary>
     /// <param name="v">Vector2</param>
     /// <returns>Distance of the vector</returns>
+    public static float DistanceSquared(Vector2 v)
+    {
+        return v.X * v.X + v.Y * v.Y;
+    }
+
+    /// <summary>
+    /// Returns the distance or magnitude of the vector
+    /// </summary>
+    /// <param name="v">Vector2</param>
+    /// <returns>Distance of the vector</returns>
     public static float Distance(Vector2 v)
     {
         return MathF.Sqrt(v.X * v.X + v.Y * v.Y);
+    }
+
+    /// <summary>
+    /// Returns the distance or magnitude between the vectors
+    /// </summary>
+    /// <param name="v1">First Vector</param>
+    /// <param name="v2">Second Vector</param>
+    /// <returns>Distance value between the vectors</returns>
+    public static float DistanceSquared(Vector2 v1, Vector2 v2)
+    {
+        float dx = v1.X - v2.X;
+        float dy = v1.Y - v2.Y;
+        return dx * dx + dy * dy;
     }
 
     /// <summary>

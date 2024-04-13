@@ -4,36 +4,14 @@ using Microsoft.Xna.Framework;
 
 namespace FavobeanGames.MGFramework.Geometry2D.Shapes;
 
-public class Shape : Geometry
+public class Polygon : Geometry
 {
-    private List<Vector2> vertices;
-    /// <summary>
-    /// Exterior points of the polygon
-    /// </summary>
-    public new List<Vector2> Vertices
-    {
-        get => vertices;
-        set
-        {
-            vertices = value;
-            UpdateLines();
-        }
-    }
-
     /// <summary>
     /// Lines of the polygon
     /// </summary>
     public readonly List<Line> ExteriorVertices;
 
-    public Shape(params Vector2[] points)
-    {
-        ExteriorVertices = new List<Line>();
-        Vertices = points.ToList();
-
-        GeometryType = GeometryType.Polygon;
-    }
-
-    public Shape(List<Vector2> points)
+    public Polygon(params Vector2[] points)
     {
         ExteriorVertices = new List<Line>();
         Vertices = points;
@@ -41,22 +19,39 @@ public class Shape : Geometry
         GeometryType = GeometryType.Polygon;
     }
 
-    public Shape(Transform2 transform2, params Vector2[] points)
-        : base(transform2)
+    public Polygon(List<Vector2> points)
     {
         ExteriorVertices = new List<Line>();
-        Vertices = points.ToList();
+        Vertices = points.ToArray();
+        UpdateLines();
 
         GeometryType = GeometryType.Polygon;
     }
 
-    public Shape(Transform2 transform2, List<Vector2> points)
+    public Polygon(Transform2 transform2, params Vector2[] points)
         : base(transform2)
     {
         ExteriorVertices = new List<Line>();
         Vertices = points;
+        UpdateLines();
 
         GeometryType = GeometryType.Polygon;
+
+        UpdateTransformedVertices();
+        UpdateAabb();
+    }
+
+    public Polygon(Transform2 transform2, List<Vector2> points)
+        : base(transform2)
+    {
+        ExteriorVertices = new List<Line>();
+        Vertices = points.ToArray();
+        UpdateLines();
+
+        GeometryType = GeometryType.Polygon;
+
+        UpdateTransformedVertices();
+        UpdateAabb();
     }
 
     /// <summary>
@@ -65,9 +60,9 @@ public class Shape : Geometry
     private void UpdateLines()
     {
         ExteriorVertices.Clear();
-        for (int i = 0; i < Vertices.Count; i++)
+        for (int i = 0; i < Vertices.Length; i++)
         {
-            ExteriorVertices.Add(new Line(Vertices[i], Vertices[(i + 1) % Vertices.Count]));
+            ExteriorVertices.Add(new Line(Vertices[i], Vertices[(i + 1) % Vertices.Length]));
         }
     }
 }

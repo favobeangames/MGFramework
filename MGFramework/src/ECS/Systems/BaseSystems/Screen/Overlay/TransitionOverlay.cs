@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Tweening;
 
-namespace FavobeanGames.MGFramework.Screen;
+namespace FavobeanGames.MGFramework.ECS;
 
 public class TransitionOverlay : ScreenOverlay
 {
@@ -24,13 +24,6 @@ public class TransitionOverlay : ScreenOverlay
 
         // Create polygon to cover the screen
         RectangleF b = gameScreen.Bounds;
-        transitionCover = new Polygon(new[]
-        {
-            new Vector2(b.Left, b.Top),
-            new Vector2(b.Right, b.Top),
-            new Vector2(b.Right, b.Bottom),
-            new Vector2(b.Left, b.Bottom),
-        }, Color.Black);
     }
 
     public override void Update(GameTime gameTime)

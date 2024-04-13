@@ -1,7 +1,6 @@
 using System;
 using FavobeanGames.MGFramework.Geometry2D.Shapes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
 namespace FavobeanGames.MGFramework.Graphics.Primitives;
@@ -59,7 +58,6 @@ public class Shape : Graphic
     {
         Transform2 = transform;
         FillColor = fillColor;
-        Geometry = new Geometry2D.Shapes.Rectangle(transform, 0, 0);
     }
     public Shape(Transform2 transform, Color outlineColor, int outlineThickness, Color fillColor)
         : base(GraphicType.Primitive)
@@ -69,7 +67,6 @@ public class Shape : Graphic
         OutlineColor = outlineColor;
         OutlineThickness = outlineThickness;
         FillColor = fillColor;
-        Geometry = new Geometry2D.Shapes.Rectangle(transform, 0, 0);
     }
 
     /// <summary>
