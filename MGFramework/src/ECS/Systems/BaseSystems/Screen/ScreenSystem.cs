@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using FavobeanGames.MGFramework.DataStructures.Collections;
-using FavobeanGames.MGFramework.Screen;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
+using MonoGame.Extended.Collections;
 
 namespace FavobeanGames.MGFramework.ECS;
 
@@ -17,13 +18,32 @@ public delegate void UnloadScreenDelegate(GameScreen gameScreen);
 
 public class ScreenSystem : EntityUpdateSystem
 {
+    private List<GameScreen> gameScreens;
     /// <summary>
     /// Reference to the current screen to be rendered on the window
     /// </summary>
     private GameScreen currentGameScreen;
 
-    public ScreenSystem() :base(Aspect.SetAspect(typeof(GameScreen)))
+    /// <summary>
+    /// Collection of entity ids for the current screens entities
+    /// </summary>
+    private Bag<int> currentScreenEntities;
+
+    public RectangleF CurrentScreenBounds => currentGameScreen?.Bounds ?? RectangleF.Empty;
+
+    public ScreenSystem(params GameScreen[] screens)
+        : base(Aspect.Any( typeof(GameScreen)))
     {
+        gameScreens = screens?.ToList();
+        currentScreenEntities = new Bag<int>(1024);
+    }
+
+    protected override void Initialize(IComponentService componentService)
+    {
+        gameScreens?.ForEach(s =>
+        {
+            s.Initialize(gameWorld);
+        });
     }
 
     /// <summary>
@@ -39,37 +59,20 @@ public class ScreenSystem : EntityUpdateSystem
     {
         if (currentGameScreen != null)
         {
-            currentGameScreen.UnloadScreen();
-
-            foreach (Entity entity in currentGameScreen.Entities)
-            {
-                gameWorld.MoveEntityToInactive(entity);
-            }
-
+            currentGameScreen.UnloadScreen(gameWorld);
             currentGameScreen = null;
         }
     }
 
-    public void LoadNewScreen(GameScreen gameScreen)
+    public void LoadCurrentScreen(GameScreen gameScreen)
     {
         UnloadCurrentScreen();
-        gameScreen.LoadScreen();
         currentGameScreen = gameScreen;
-
-        foreach (Entity entity in currentGameScreen.Entities)
-        {
-            gameWorld.MoveEntityToActive(entity);
-        }
+        gameScreen.LoadScreen(gameWorld);
     }
 
     public override void Update(GameTime gameTime)
     {
-        if (currentGameScreen != null)
-        {
-            currentGameScreen.Update(gameTime);
-            if (currentGameScreen.TransitionedToNewScreen)
-            {
-            }
-        }
+
     }
 }

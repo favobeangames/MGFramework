@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace FBFramework.Scenese;
+namespace FBFramework.Scenes;
 
 public class SceneStep
 {

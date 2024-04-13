@@ -1,7 +1,7 @@
 ﻿using FavobeanGames.MGFramework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.MGFramework.Screen;
+namespace FavobeanGames.MGFramework.ECS;
 
 public enum OverlayType
 {

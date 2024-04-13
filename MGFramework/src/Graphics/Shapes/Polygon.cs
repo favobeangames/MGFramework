@@ -4,7 +4,7 @@ using MonoGame.Extended;
 
 namespace FavobeanGames.MGFramework.Graphics.Primitives;
 
-public class Polygon : Primitive
+public class Polygon : Shape
 {
     private int[] triangleIndices;
     private Vector2[] vertices;
@@ -42,9 +42,9 @@ public class Polygon : Primitive
         return new Polygon(transform2, vertices, Color.Transparent, 2, Color.Black);
     }
 
-    public override void Draw(PrimitiveBatch primitiveBatch)
+    public override void Draw(ShapeBatch shapeBatch)
     {
-        if (this.vertices is null)
+        if (Geometry.Vertices is null)
         {
 #if DEBUG
             throw new NullReferenceException("Polygon must contain Vertices. Vertices were null");
@@ -54,12 +54,12 @@ public class Polygon : Primitive
 
         if (FillColor != Color.Transparent)
         {
-            primitiveBatch.DrawPolygonFill(vertices, triangleIndices, FillColor, Transform2.TransformMatrix);
+            shapeBatch.DrawPolygonFill(Geometry.Vertices, triangleIndices, FillColor, Transform2.TransformMatrix);
         }
 
         if (HasOutline)
         {
-            primitiveBatch.DrawPolygon(vertices, OutlineThickness, OutlineColor, Transform2.TransformMatrix);
+            shapeBatch.DrawPolygon(Geometry.Vertices, OutlineThickness, OutlineColor, Transform2.TransformMatrix);
         }
     }
 

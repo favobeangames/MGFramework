@@ -9,6 +9,13 @@
 
 matrix WorldViewProjection;
 
+Texture2D SpriteTexture;
+
+sampler2D SpriteTextureSampler = sampler_state
+{
+	Texture = <SpriteTexture>;
+};
+
 struct VertexShaderInput
 {
     float4 Position : POSITION0;
@@ -19,28 +26,20 @@ struct VertexShaderOutput
 {
     float4 Position : SV_POSITION;
     float4 Color : COLOR0;
+    float2 TextureCoordinates : TEXCOORD0;
 };
-
-VertexShaderOutput MainVS(in VertexShaderInput input)
-{
-    VertexShaderOutput output = (VertexShaderOutput)0;
-
-    output.Position = mul(input.Position, WorldViewProjection);
-    output.Color = input.Color;
-
-    return output;
-}
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-    return input.Color;
+    float4 col = tex2D(SpriteTextureSampler, input.TextureCoordinates);
+    col.rgb = 1;
+    return col;
 }
 
 technique BasicColorDrawing
 {
     pass P0
     {
-        VertexShader = compile VS_SHADERMODEL MainVS();
         PixelShader = compile PS_SHADERMODEL MainPS();
     }
 };

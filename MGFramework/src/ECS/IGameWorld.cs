@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace FavobeanGames.MGFramework.Components;
+namespace FavobeanGames.MGFramework.ECS;
 
 public interface IGameWorld
 {

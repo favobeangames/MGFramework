@@ -1,7 +1,9 @@
 ﻿using FavobeanGames.MGFramework.Graphics.Primitives;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FavobeanGames.MGFramework.Graphics;
 
@@ -14,27 +16,42 @@ public enum GraphicType
     None,
     Sprite,
     Primitive,
+    Text,
     UI,
 }
 
-public class Graphic
+public abstract class Graphic
 {
-
-    /// <summary>
-    /// Layer data that the entity is rendered on
-    /// </summary>
-    public LayerData LayerData { get; set; }
-
     /// <summary>
     /// GraphicType for the entity
     /// </summary>
     public GraphicType GraphicType { get; }
 
     /// <summary>
+    /// Alpha channel for the color of the graphic
+    /// </summary>
+    public float Alpha = 1f;
+
+    /// <summary>
     /// Base color of the graphic.
     /// Defaults to Color.White
     /// </summary>
-    protected Color Color;
+    protected Color color;
+    public Color Color
+    {
+        get => color * Alpha;
+        private set => color = value;
+    }
+
+    /// <summary>
+    /// Width of the sprite in pixels
+    /// </summary>
+    public int Width;
+
+    /// <summary>
+    /// Height of the sprite in pixels
+    /// </summary>
+    public int Height;
 
     /// <summary>
     /// Depth that graphic is drawn by the spritebatch.
@@ -43,39 +60,68 @@ public class Graphic
     protected float Depth = 0.5f;
 
     /// <summary>
-    /// Origin point of the graphic. Generally the center, but this is the pivot
-    /// point were we will rotate the graphic
+    /// Basic sprite effect.
+    /// Default to SpriteEffects.FlipVertically as GraphicsBatch will flip graphics
+    /// due to swapping from MonoGames base coordinate system
     /// </summary>
-    protected Vector2 Origin = new Vector2(0, 0);
+    protected SpriteEffects SpriteEffects = SpriteEffects.FlipVertically;
 
     /// <summary>
-    /// Pixel coordinates of the graphic. Defaults to the Top Left position of the
-    /// graphic
+    /// Stores transform properties for the graphic
     /// </summary>
-    public Vector2 Position;
+    public Transform2 Transform2 { get; protected set; }
 
     /// <summary>
-    /// Rotation angle in radians of graphic around the origin point.
+    /// Position of the graphic
     /// </summary>
-    public float Rotation = 0;
+    public Vector2 Position => Transform2.Position;
 
     /// <summary>
-    /// X, Y scale factor for the graphic.
-    /// Defaults to 100%, 100%.
+    /// Center Position of the graphic
     /// </summary>
-    public Vector2 Scale = new Vector2(1, 1);
+    public Vector2 CenterPosition => new(Position.X - Width / 2f, Position.Y - Height / 2f);
+
+    private RenderTarget2D renderTarget;
+    /// <summary>
+    /// Render target to draw to the screen
+    /// </summary>
+    public RenderTarget2D RenderTarget
+    {
+        get => renderTarget;
+        set
+        {
+            if (value == null)
+            {
+                renderTarget?.Dispose();
+            }
+
+            renderTarget = value;
+        }
+    }
 
     /// <summary>
-    /// Transform matrix used to modify graphic on screen
-    /// 3x2 Matrix as this is for 2D games.
+    /// Axis aligned bounding box for the graphic
     /// </summary>
-    /// <returns>Matrix</returns>
-    protected Matrix TransformMatrix => Matrix2.CreateFrom(Position, Rotation, Scale, Origin);
+    public RectangleF AABB;
+
+    private int layerDepth = 0;
+    /// <summary>
+    /// Determines where to draw the entity on the screen
+    /// Lower = Rendered below other graphics
+    /// Higher = Rendered above other graphics
+    /// </summary>
+    public int LayerDepth
+    {
+        get => layerDepth;
+        set => layerDepth = value;
+    }
+
+    protected Effect activeEffect;
 
     /// <summary>
-    /// Vector containing the velocity
+    /// Active effect for the graphic
     /// </summary>
-    public Vector2 Velocity { get; set; }
+    public Effect ActiveEffect => activeEffect;
 
     public Graphic()
     {
@@ -87,18 +133,24 @@ public class Graphic
     {
         Color = Color.White;
         GraphicType = graphicType;
+        Transform2 = Transform2.Empty;
     }
 
-    public virtual void Update(GameTime gameTime)
+    public Graphic(GraphicType graphicType, Transform2 transform2)
     {
-        Position += Velocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+        Color = Color.White;
+        GraphicType = graphicType;
+        Transform2 = transform2;
     }
 
-    public virtual void Draw(SpriteBatch spriteBatch)
-    {
-    }
+    public virtual void Draw(SpriteBatch spriteBatch) { }
+    public virtual void Draw(SpriteBatch spriteBatch, Transform2 transform2) { }
+    public virtual void Draw(ShapeBatch shapeBatch) { }
+    public virtual void Draw(ShapeBatch shapeBatch, Transform2 transform2) { }
 
-    public virtual void Draw(PrimitiveBatch primitiveBatch)
-    {
-    }
+    /// <summary>
+    /// Gets the graphics Axis Aligned Bounding Box
+    /// </summary>
+    /// <returns>Rectangle object that defines the graphics Axis Aligned Bounding Box</returns>
+    public abstract RectangleF GetAABB();
 }

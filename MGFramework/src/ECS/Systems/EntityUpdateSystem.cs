@@ -1,8 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.MGFramework;
+namespace FavobeanGames.MGFramework.ECS;
 
-public class EntityUpdateSystem : EntitySystem, IUpdateSystem
+public abstract class EntityUpdateSystem : GameSystem, IUpdateSystem
 {
+    public EntityUpdateSystem(AspectBuilder builder)
+        : base(builder)
+    {
+    }
     public virtual void Update(GameTime gameTime) { }
 }

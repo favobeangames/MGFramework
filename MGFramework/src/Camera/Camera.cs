@@ -1,12 +1,11 @@
 ﻿using System;
-using FavobeanGames.MGFramework.Components;
 using FavobeanGames.MGFramework.Math;
-using FavobeanGames.MGFramework.Screen;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Tweening;
+using GameWindow = FavobeanGames.MGFramework.GameWindow;
 
-namespace FavobeanGames.MGFramework.CameraSystem
+namespace FavobeanGames.MGFramework.Cameras
 {
     /// <summary>
     /// Camera object
@@ -25,30 +24,17 @@ namespace FavobeanGames.MGFramework.CameraSystem
         public CameraOptions CameraOptions { get; }
 
         /// <summary>
-        /// Reference to Entity for the camera to follow when set
-        /// </summary>
-        public Entity EntityToFollow { get; private set; }
-
-        /// <summary>
-        /// Current viewed game screen
-        /// </summary>
-        public GameScreen CurrentGameScreen { get; private set; }
-        /// <summary>
         /// Flag to determine if we should clamp the camera extents to
-        /// the GameScreen bounds.
+        /// a set geometry bound.
         /// </summary>
-        private bool clampCameraToGameScreenBounds { get; set; }
-
+        private bool clampCameraToclampedBounds { get; set; }
+        private RectangleF clampedBounds;
 
         /// <summary>
         /// Current screen that the camera is viewing
         /// </summary>
         public GameWindow GameWindow { get; private set; }
 
-        /// <summary>
-        /// How far the camera is from the game screen
-        /// </summary>
-        private float z;
         /// <summary>
         /// How far back the camera needs to be to see the entire scene
         /// </summary>
@@ -72,7 +58,12 @@ namespace FavobeanGames.MGFramework.CameraSystem
         /// </summary>
         public RectangleF ViewBounds { get; private set; }
         public Vector2 Position { get; set; }
-        public float Z => z;
+
+        /// <summary>
+        /// How far the camera is from the game screen
+        /// </summary>
+        public float Z { get; private set; }
+
         public Matrix View => view;
         public Matrix Projection => proj;
 
@@ -99,7 +90,7 @@ namespace FavobeanGames.MGFramework.CameraSystem
 
             Position = new Vector2(0, 0);
             baseZ = GetZFromHeight(gameWindow.Height);
-            z = baseZ;
+            Z = baseZ;
             zoom = 1;
 
             UpdateMatrices();
@@ -107,18 +98,12 @@ namespace FavobeanGames.MGFramework.CameraSystem
 
         public void Update(GameTime gameTime)
         {
-            if (EntityToFollow is not null)
-            {
-                if (EntityToFollow.Position != Position)
-                {
-                    MoveTo(EntityToFollow.Position);
-                }
-            }
+
         }
 
         public void UpdateMatrices()
         {
-            if (clampCameraToGameScreenBounds)
+            if (clampCameraToclampedBounds)
             {
                 EnsureCameraIsWithinScreenBounds();
             }
@@ -126,11 +111,11 @@ namespace FavobeanGames.MGFramework.CameraSystem
             switch (CameraOptions.ProjectionType)
             {
                 case CameraProjectionType.Perspective:
-                    view = Matrix.CreateLookAt(new Vector3(Position, z), new Vector3(Position, 0), Vector3.Up);
+                    view = Matrix.CreateLookAt(new Vector3(Position, Z), new Vector3(Position, 0), Vector3.Up);
                     proj = Matrix.CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, MinZ, MaxZ);
                     break;
                 case CameraProjectionType.Orthographic:
-                    view = Matrix.CreateLookAt(new Vector3(Position, z), new Vector3(Position, 0), Vector3.Up) * Matrix.CreateScale(zoom);
+                    view = Matrix.CreateLookAt(new Vector3(Position, Z), new Vector3(Position, 0), Vector3.Up) * Matrix.CreateScale(zoom);
                     proj = Matrix.CreateOrthographic(GameWindow.Width, GameWindow.Height, MinZ, MaxZ);
                     break;
                 default:
@@ -149,16 +134,16 @@ namespace FavobeanGames.MGFramework.CameraSystem
         }
         public float GetHeightFromZ()
         {
-            return z * MathF.Tan(0.5f * fieldOfView) * 2f;
+            return Z * MathF.Tan(0.5f * fieldOfView) * 2f;
         }
         public void MoveZ(float amount)
         {
-            z += amount;
-            z = System.Math.Clamp(z, MinZ, MaxZ);
+            Z += amount;
+            Z = System.Math.Clamp(Z, MinZ, MaxZ);
         }
         public void ResetZ()
         {
-            z = baseZ;
+            Z = baseZ;
         }
 
         public void Move(Vector2 amount)
@@ -188,7 +173,7 @@ namespace FavobeanGames.MGFramework.CameraSystem
         private void UpdatedZoom()
         {
             zoom = System.Math.Clamp(zoom, MinZoom, MaxZoom);
-            z = baseZ / zoom;
+            Z = baseZ / zoom;
         }
 
         /// <summary>
@@ -256,52 +241,12 @@ namespace FavobeanGames.MGFramework.CameraSystem
             viewBounds = new RectangleF(left, bottom, right - left, top - bottom);
         }
 
-        /// <summary>
-        /// Sets the camera to follow an entity
-        /// </summary>
-        /// <param name="entity">Entity for camera to follow</param>
-        public void SetEntityToFollow(Entity entity)
-        {
-            EntityToFollow = entity;
-        }
-
-        public void ResetEntityToFollow()
-        {
-            EntityToFollow = null;
-        }
-
-        /// <summary>
-        /// Gives the camera a reference to the current game screen rendered
-        /// </summary>
-        /// <param name="gameScreen">Current game screen being rendered</param>
-        /// <param name="clampToBounds">Flag to make the camera stay within the bounds of the game screen</param>
-        public void SetCurrentGameScreen(GameScreen gameScreen, bool clampToBounds)
-        {
-            CurrentGameScreen = gameScreen;
-            clampCameraToGameScreenBounds = clampToBounds;
-
-            if (CurrentGameScreen is not null && clampCameraToGameScreenBounds)
-            {
-                EnsureCameraIsWithinScreenBounds();
-            }
-        }
-
-        /// <summary>
-        /// Sets all GameScreen properties to null/false/empty
-        /// </summary>
-        public void ResetCurrentGameScreen()
-        {
-            CurrentGameScreen = null;
-            clampCameraToGameScreenBounds = false;
-        }
-
         public void EnsureCameraIsWithinScreenBounds()
         {
             bool outOfBounds = false;
-            RectangleF gameScreenBounds = CurrentGameScreen.Bounds;
             foreach (var corner in ViewBounds.GetCorners())
             {
-                if (!gameScreenBounds.Contains(corner))
+                if (!clampedBounds.Contains(corner))
                 {
                     outOfBounds = true;
                     break;
@@ -312,24 +257,24 @@ namespace FavobeanGames.MGFramework.CameraSystem
             {
                 float newX = Position.X;
                 float newY = Position.Y;
-                if (gameScreenBounds.Left > ViewBounds.Left)
+                if (clampedBounds.Left > ViewBounds.Left)
                 {
-                    newX = gameScreenBounds.Left + ViewBounds.Width / 2;
+                    newX = clampedBounds.Left + ViewBounds.Width / 2;
                 }
 
-                if (gameScreenBounds.Right < ViewBounds.Right)
+                if (clampedBounds.Right < ViewBounds.Right)
                 {
-                    newX = gameScreenBounds.Right - ViewBounds.Width / 2;
+                    newX = clampedBounds.Right - ViewBounds.Width / 2;
                 }
 
-                if (gameScreenBounds.Top > ViewBounds.Top)
+                if (clampedBounds.Top > ViewBounds.Top)
                 {
-                    newY = gameScreenBounds.Top + ViewBounds.Height / 2;
+                    newY = clampedBounds.Top + ViewBounds.Height / 2;
                 }
 
-                if (gameScreenBounds.Bottom < ViewBounds.Bottom)
+                if (clampedBounds.Bottom < ViewBounds.Bottom)
                 {
-                    newY = gameScreenBounds.Bottom - ViewBounds.Height / 2;
+                    newY = clampedBounds.Bottom - ViewBounds.Height / 2;
                 }
 
                 Position = new Vector2(newX, newY);

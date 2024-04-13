@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoSandbox", "DemoSandbox\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGFrameworkTests", "MGFrameworkTests\MGFrameworkTests.csproj", "{23BF2597-0794-40D2-9F25-22B70BBE5778}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicsDemo", "PhysicsDemo\PhysicsDemo.csproj", "{8A2A3D96-0269-4A61-A2E8-8E3248781447}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +23,12 @@ Global
 		{EDD1888C-E36A-4CA9-AC14-E40B50271A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD1888C-E36A-4CA9-AC14-E40B50271A20}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23BF2597-0794-40D2-9F25-22B70BBE5778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23BF2597-0794-40D2-9F25-22B70BBE5778}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23BF2597-0794-40D2-9F25-22B70BBE5778}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23BF2597-0794-40D2-9F25-22B70BBE5778}.Release|Any CPU.Build.0 = Release|Any CPU
+        {23BF2597-0794-40D2-9F25-22B70BBE5778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {23BF2597-0794-40D2-9F25-22B70BBE5778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {23BF2597-0794-40D2-9F25-22B70BBE5778}.Release|Any CPU.Build.0 = Release|Any CPU
+        {8A2A3D96-0269-4A61-A2E8-8E3248781447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {8A2A3D96-0269-4A61-A2E8-8E3248781447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {8A2A3D96-0269-4A61-A2E8-8E3248781447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {8A2A3D96-0269-4A61-A2E8-8E3248781447}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

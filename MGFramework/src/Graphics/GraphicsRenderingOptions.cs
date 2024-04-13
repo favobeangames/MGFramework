@@ -1,4 +1,6 @@
-﻿namespace FavobeanGames.MGFramework.Graphics;
+﻿using System;
+
+namespace FavobeanGames.MGFramework.Graphics;
 
 public enum RenderStyleOptions
 {

@@ -1,6 +1,9 @@
-﻿namespace FavobeanGames.MGFramework.ECS;
+﻿using Microsoft.Xna.Framework;
 
-public class UpdateSystem
+namespace FavobeanGames.MGFramework.ECS;
+
+public abstract class UpdateSystem : IUpdateSystem
 {
-    
+    public virtual void Initialize(GameWorld gameWorld) { }
+    public abstract void Update(GameTime gameTime);
 }

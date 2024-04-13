@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace FavobeanGames.MGFramework;
+namespace FavobeanGames.MGFramework.ECS;
 
 public interface IUpdateSystem : IGameSystem
 {

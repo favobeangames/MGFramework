@@ -1,6 +1,5 @@
 ﻿using System;
 using FavobeanGames.MGFramework.Cameras;
-using FavobeanGames.MGFramework.CameraSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,7 +9,7 @@ namespace FavobeanGames.MGFramework.Graphics.Primitives;
 /// Graphic batcher class to render primitive graphics in batches
 /// to the screen
 /// </summary>
-public class PrimitiveBatch : IDisposable
+public class ShapeBatch : IDisposable
 {
     private const float MinLineThickness = 1f;
     private const float MaxLineThickness = 10f;
@@ -45,7 +44,7 @@ public class PrimitiveBatch : IDisposable
     /// </summary>
     /// <param name="game">MonoGame Game instance</param>
     /// <exception cref="ArgumentNullException">Throws exception if graphicsDevice parameter is null</exception>
-    public PrimitiveBatch(GraphicsDevice graphicsDevice)
+    public ShapeBatch(GraphicsDevice graphicsDevice)
     {
         isDisposed = false;
         this.graphicsDevice = graphicsDevice ?? throw new ArgumentNullException("graphicsDevice");
@@ -61,7 +60,7 @@ public class PrimitiveBatch : IDisposable
         baseEffect.View = Matrix.Identity;
         baseEffect.Projection = Matrix.Identity;
 
-        const int maxVertexCount = 1024 * 20;
+        const int maxVertexCount = 256 * 20;
         const int maxIndexCount = maxVertexCount * 3;
 
         vertices = new VertexPositionColor[maxVertexCount];

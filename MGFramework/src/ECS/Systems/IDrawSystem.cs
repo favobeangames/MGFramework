@@ -1,9 +1,8 @@
 ﻿using FavobeanGames.MGFramework.DataStructures.Collections;
 
-namespace FavobeanGames.MGFramework;
+namespace FavobeanGames.MGFramework.ECS;
 
 public interface IDrawSystem : IGameSystem
 {
-    public void Draw(params Entity[] entities);
-    public void Draw(EntityList entities);
+    public void Draw();
 }

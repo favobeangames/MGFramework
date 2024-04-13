@@ -7,40 +7,70 @@
     #define PS_SHADERMODEL ps_4_0_level_9_1
 #endif
 
-matrix WorldViewProjection;
+float2 texelSize;
+int shadow;
+Texture2D SpriteTexture;
 
-struct VertexShaderInput
+sampler2D SpriteTextureSampler = sampler_state
 {
-    float4 Position : POSITION0;
-    float4 Color : COLOR0;
+	Texture = <SpriteTexture>;
 };
 
 struct VertexShaderOutput
 {
-    float4 Position : SV_POSITION;
-    float4 Color : COLOR0;
+  float4 Color : COLOR0;
+  float2 TextureCoordinates : TEXCOORD0;
 };
-
-VertexShaderOutput MainVS(in VertexShaderInput input)
-{
-    VertexShaderOutput output = (VertexShaderOutput)0;
-
-    output.Position = mul(input.Position, WorldViewProjection);
-    output.Color = input.Color;
-
-    return output;
-}
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-    return input.Color;
+	float4 color = tex2D(SpriteTextureSampler, input.TextureCoordinates) * input.Color;
+    if (!color.a)
+    {
+        float2 offsetX = float2(texelSize.x, 0);
+        float2 offsetY = float2(0, texelSize.y);
+        float alpha = color.a;
+
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates + offsetX).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetX).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates + offsetY).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetX).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates + offsetY + offsetX).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY + offsetX).a);
+        alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates + offsetY - offsetX).a);
+
+        if (alpha)
+        {
+            return float4(1, 1, 1, alpha);
+        }
+
+        if (shadow == 1)
+        {
+            alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetX - offsetX).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetY).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates + offsetY - offsetX - offsetX).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetX - offsetX).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetY - offsetY).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetY + offsetX).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetY - offsetX - offsetX).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetY - offsetY - offsetX).a);
+          	alpha = max(alpha, tex2D(SpriteTextureSampler, input.TextureCoordinates - offsetY - offsetY - offsetY - offsetX - offsetX).a);
+
+          	if (alpha)
+          	{
+          	    return float4(0.09f, 0.09f, 0.09f, alpha);
+          	}
+        }
+    }
+
+	return color;
 }
 
 technique BasicColorDrawing
 {
     pass P0
     {
-        VertexShader = compile VS_SHADERMODEL MainVS();
         PixelShader = compile PS_SHADERMODEL MainPS();
     }
 };
