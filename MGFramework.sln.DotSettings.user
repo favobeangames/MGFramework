@@ -4,7 +4,7 @@
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestDotProduct&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0d6611c9_002D770f_002D4587_002Db01f_002D6158f125146c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestDotProduct #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0d6611c9_002D770f_002D4587_002Db01f_002D6158f125146c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestDotProduct #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestDotProduct&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestCrossProduct&lt;/TestId&gt;&#xD;
@@ -13,6 +13,15 @@
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestProjection&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestReflection&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestDistanceBetween&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.TwoPointTest_CorrectCalculation&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d107624f_002Da837_002D44c7_002D8f13_002Df6f7ea0fdbe2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TwoPointTest_CorrectCalculation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.TwoPointTest_CorrectCalculation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.LinesIntersect_IntersectingLines_ShouldReturnTrue&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.LineSegmentIntersection_ShouldReturnTrue&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.LineSegmentIntersection_ShouldReturnFalse&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dbaa09f1_002Df571_002D4575_002D8f81_002D766386c84696/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestDotProduct" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -23,5 +32,10 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f4274337_002Dff7c_002D4ab7_002Da9c3_002Dedd34e7c5740/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestDotProduct #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.VectorMathTests.TestDotProduct&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.TwoPointTest_CorrectCalculation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.PointSlope_CorrectCalculation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.LinesIntersect_ParallelLines_ShouldReturnFalse&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.LinesIntersect_OverlappingLines_ShouldReturnTrue&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::23BF2597-0794-40D2-9F25-22B70BBE5778::net6.0::MGFrameworkTests.Geometry2D.Math.LineMathTests.LinesIntersect_IntersectingLines_ShouldReturnTrue&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

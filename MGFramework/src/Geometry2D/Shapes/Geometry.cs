@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -143,6 +144,17 @@ public class Geometry
     }
 
     /// <summary>
+    /// Adds a vertex to the vertices of the geometry
+    /// </summary>
+    /// <param name="vertex">Vertex to be added</param>
+    public virtual void UpdateVertices(Vector2[] vertices)
+    {
+        Vertices = vertices;
+        UpdateTransformedVertices();
+        UpdateAabb();
+    }
+
+    /// <summary>
     /// Updates the TransformVertices property by the stored transform object
     /// </summary>
     protected void UpdateTransformedVertices()
@@ -164,14 +176,7 @@ public class Geometry
     /// </summary>
     protected void UpdateAabb()
     {
-        if (GeometryType == GeometryType.Circle)
-        {
-            Aabb = GetBoundingBoxForCircle();
-        }
-        else
-        {
-            Aabb = GetBoundingBoxForVertices();
-        }
+        Aabb = GeometryType == GeometryType.Circle ? GetBoundingBoxForCircle() : GetBoundingBoxForVertices();
     }
 
     /// <summary>

@@ -148,9 +148,7 @@ public abstract class Graphic
     public virtual void Draw(ShapeBatch shapeBatch) { }
     public virtual void Draw(ShapeBatch shapeBatch, Transform2 transform2) { }
 
-    /// <summary>
-    /// Gets the graphics Axis Aligned Bounding Box
-    /// </summary>
-    /// <returns>Rectangle object that defines the graphics Axis Aligned Bounding Box</returns>
     public abstract RectangleF GetAABB();
+
+    public abstract Vector2[] GetTransformedVertices();
 }

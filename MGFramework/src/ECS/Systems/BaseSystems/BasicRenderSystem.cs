@@ -30,13 +30,12 @@ public class BaseRenderSystem : EntityDrawSystem
     /// </summary>
     public bool DebugMode { get; set; }
 
-    public BaseRenderSystem(Game game, int screenWidth, int screenHeight, GraphicsRenderingOptions graphicsRenderingOptions)
+    public BaseRenderSystem(GraphicsDeviceManager graphics, int screenWidth, int screenHeight, GraphicsRenderingOptions graphicsRenderingOptions)
         :base (Aspect.Any(typeof(Sprite), typeof(Shape)))
     {
-        this.game = game;
-        gameWindow = new GameWindow(game, screenWidth, screenHeight);
+        gameWindow = new GameWindow(graphics, screenWidth, screenHeight);
 
-        graphicsDevice = game.GraphicsDevice;
+        graphicsDevice = graphics.GraphicsDevice;
         graphicsBatch = new GraphicsBatch(graphicsDevice);
         this.graphicsRenderingOptions = graphicsRenderingOptions ?? GraphicsRenderingOptions.DefaultRenderingOptions;
     }

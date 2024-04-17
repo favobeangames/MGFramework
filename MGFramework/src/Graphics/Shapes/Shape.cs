@@ -23,6 +23,17 @@ public class Shape : Graphic
     /// </summary>
     public Geometry Geometry { get; set; }
 
+    public new Transform2 Transform2 => Geometry.Transform2;
+    public override RectangleF GetAABB()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Vector2[] GetTransformedVertices()
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Fill color for primitive shapes
     /// </summary>
@@ -44,25 +55,18 @@ public class Shape : Graphic
     public int OutlineThickness;
 
     public Shape()
+        : base(GraphicType.Primitive)
     {
     }
 
-    public Shape(Transform2 transform)
+    public Shape(Color fillColor)
         : base(GraphicType.Primitive)
     {
-        Transform2 = transform;
-    }
-
-    public Shape(Transform2 transform, Color fillColor)
-        : base(GraphicType.Primitive)
-    {
-        Transform2 = transform;
         FillColor = fillColor;
     }
-    public Shape(Transform2 transform, Color outlineColor, int outlineThickness, Color fillColor)
+    public Shape(Color outlineColor, int outlineThickness, Color fillColor)
         : base(GraphicType.Primitive)
     {
-        Transform2 = transform;
         HasOutline = true;
         OutlineColor = outlineColor;
         OutlineThickness = outlineThickness;
@@ -82,18 +86,4 @@ public class Shape : Graphic
             new Vector2(0, 1)
         },
         Color.White);
-
-    /// <summary>
-    /// Returns a list of vertices transformed into world space
-    /// </summary>
-    /// <returns>Array of Vector2</returns>
-    public virtual Vector2[] GetTransformedVertices()
-    {
-        return null;
-    }
-
-    public override RectangleF GetAABB()
-    {
-        throw new NotImplementedException();
-    }
 }

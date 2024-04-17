@@ -18,6 +18,11 @@ public class Line : Geometry
     {
         Start = start;
         End = end;
+        Vertices = new[]
+        {
+            Start,
+            End
+        };
         GeometryType = GeometryType.Line;
     }
     public Line(Transform2 transform2, Vector2 start, Vector2 end)
@@ -25,9 +30,21 @@ public class Line : Geometry
     {
         Start = start;
         End = end;
+        Vertices = new[]
+        {
+            Start,
+            End
+        };
         GeometryType = GeometryType.Line;
 
         UpdateTransformedVertices();
         UpdateAabb();
+    }
+
+    public override void UpdateVertices(Vector2[] vertices)
+    {
+        base.UpdateVertices(vertices);
+        Start = vertices[0];
+        End = vertices[1];
     }
 }

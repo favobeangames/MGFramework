@@ -1,4 +1,5 @@
 ﻿using System;
+using FavobeanGames.MGFramework.Geometry2D.Shapes;
 using Microsoft.Xna.Framework;
 
 namespace FavobeanGames.MGFramework.Graphics.Primitives;
@@ -12,19 +13,11 @@ public class Line : Shape
         ShapeType = ShapeType.Line;
     }
 
-    public Line(float thickness, Vector2 startPosition, Vector2 endPosition, Color fillColor)
+    public Line(Geometry geometry, float thickness, Color fillColor)
     {
+        Geometry = geometry;
         this.thickness = thickness;
-        Geometry = new Geometry2D.Shapes.Line(startPosition, endPosition);
         FillColor = fillColor;
-        ShapeType = ShapeType.Line;
-    }
-
-    public Line(Transform2 transform2, Vector2 startPosition, Vector2 endPosition, float thickness, Color fillColor)
-        : base(transform2, fillColor)
-    {
-        Geometry = new Geometry2D.Shapes.Line(startPosition, endPosition);
-        this.thickness = thickness;
         ShapeType = ShapeType.Line;
     }
 

@@ -58,10 +58,15 @@ public class Text : Graphic
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawString(Font, TextValue, Transform2.Position, Color, Transform2.Rotation, Origin, Transform2.Scale, SpriteEffects.None, Depth);
+        spriteBatch.DrawString(Font, TextValue, Transform2.Position, Color, Transform2.Rotation, Origin, Transform2.Scale * scaleModifier, SpriteEffects.None, Depth);
     }
 
     public override RectangleF GetAABB()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Vector2[] GetTransformedVertices()
     {
         throw new System.NotImplementedException();
     }

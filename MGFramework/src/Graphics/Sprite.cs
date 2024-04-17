@@ -126,6 +126,11 @@ namespace FavobeanGames.MGFramework.Graphics
             throw new NotImplementedException();
         }
 
+        public override Vector2[] GetTransformedVertices()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(float elapsed)
         {
             SpriteSheet?.Update(elapsed);

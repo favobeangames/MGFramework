@@ -16,6 +16,16 @@ public class Vector
     }
 
     /// <summary>
+    /// Returns a new Vector with X and Y values of NaN
+    /// </summary>
+    public static readonly Vector Empty = new Vector(float.NaN, float.NaN);
+
+    /// <summary>
+    /// Returns a new Vector with X and Y values of 0
+    /// </summary>
+    public static readonly Vector Zero = new Vector(0, 0);
+
+    /// <summary>
     /// Casts the vector object to a MonoGame Vector2 object
     /// </summary>
     /// <returns>MonoGame Vector2 object</returns>

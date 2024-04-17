@@ -10,7 +10,7 @@ public class Polygon : Shape
     private Vector2[] vertices;
 
     public Polygon(Transform2 transform2, Vector2[] vertices, Color fillColor)
-        : base(transform2)
+        : base(fillColor)
     {
         this.vertices = vertices;
         Geometry = new Geometry2D.Shapes.Polygon(transform2, vertices);
@@ -19,9 +19,8 @@ public class Polygon : Shape
         ShapeType = ShapeType.Polygon;
     }
     public Polygon(Transform2 transform2, Vector2[] vertices,  Color fillColor, int thickness, Color outlineColor)
-        : base(transform2, outlineColor, thickness, fillColor)
+        : base(outlineColor, thickness, fillColor)
     {
-        Transform2 = transform2;
         Geometry = new Geometry2D.Shapes.Polygon(transform2, vertices);
         CalculateTriangleIndices();
 

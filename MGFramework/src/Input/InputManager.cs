@@ -212,8 +212,8 @@ namespace FavobeanGames.MGFramework.Input
             sy /= screenDestinationRectangle.Height;
 
             // Multiply the normalized coordinates by the actual size of the screen to get the location in screen coordinates.
-            float x = sx * gameWindow.Width;
-            float y = sy * gameWindow.Height;
+            float x = sx * gameWindow.ScreenWidth;
+            float y = sy * gameWindow.ScreenHeight;
 
             return new Vector2(x, y);
         }
@@ -221,7 +221,7 @@ namespace FavobeanGames.MGFramework.Input
         public Vector2 GetMouseWorldPosition()
         {
             // Create a viewport based on the game screen.
-            Viewport screenViewport = new Viewport(0, 0, gameWindow.Width, gameWindow.Height);
+            Viewport screenViewport = new Viewport(0, 0, gameWindow.ScreenWidth, gameWindow.ScreenHeight);
 
             // Get the mouse pixel coordinates in that screen.
             Vector2 mouseScreenPosition = GetMouseScreenPosition();
