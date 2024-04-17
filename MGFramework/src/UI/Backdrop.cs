@@ -18,4 +18,9 @@ public class Backdrop : Graphic
     {
         throw new System.NotImplementedException();
     }
+
+    public override Vector2[] GetTransformedVertices()
+    {
+        throw new System.NotImplementedException();
+    }
 }

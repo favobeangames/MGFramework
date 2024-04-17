@@ -50,7 +50,7 @@ public class Game1 : Game
 
         screenSystem = new ScreenSystem(testPage);
 
-        var gameWindow = new GameWindow(this, Constants.BASE_GAME_WIDTH, Constants.BASE_GAME_HEIGHT);
+        var gameWindow = new GameWindow(graphics, Constants.BASE_GAME_WIDTH, Constants.BASE_GAME_HEIGHT);
         renderSystem = new RenderSystem(
             this,
             gameWindow,

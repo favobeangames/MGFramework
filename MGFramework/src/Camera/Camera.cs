@@ -85,11 +85,11 @@ namespace FavobeanGames.MGFramework.Cameras
 
             GameWindow = gameWindow;
 
-            aspectRatio = (float) gameWindow.Width / gameWindow.Height;
+            aspectRatio = (float) gameWindow.ScreenWidth / gameWindow.ScreenHeight;
             fieldOfView = MathHelper.PiOver2;
 
             Position = new Vector2(0, 0);
-            baseZ = GetZFromHeight(gameWindow.Height);
+            baseZ = GetZFromHeight(gameWindow.ScreenHeight);
             Z = baseZ;
             zoom = 1;
 
@@ -116,7 +116,7 @@ namespace FavobeanGames.MGFramework.Cameras
                     break;
                 case CameraProjectionType.Orthographic:
                     view = Matrix.CreateLookAt(new Vector3(Position, Z), new Vector3(Position, 0), Vector3.Up) * Matrix.CreateScale(zoom);
-                    proj = Matrix.CreateOrthographic(GameWindow.Width, GameWindow.Height, MinZ, MaxZ);
+                    proj = Matrix.CreateOrthographic(GameWindow.ScreenWidth, GameWindow.ScreenHeight, MinZ, MaxZ);
                     break;
                 default:
                     view = Matrix.Identity;

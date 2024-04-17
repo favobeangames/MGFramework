@@ -6,7 +6,7 @@ namespace MGFrameworkTests.Geometry2D.Math;
 public class VectorMathTests
 {
     [Fact]
-    public void TestDotProduct()
+    public void TestDotProduct_Success()
     {
         Vector v1 = new Vector(1, 2);
         Vector v2 = new Vector(4, 5);

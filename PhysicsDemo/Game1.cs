@@ -50,7 +50,7 @@ public class Game1 : Game
         graphics.PreferredBackBufferHeight = 720;
         graphics.ApplyChanges();
 
-        gameWindow = new GameWindow(this, 1280, 720);
+        gameWindow = new GameWindow(graphics, 1280, 720);
 
         camera = new Camera(gameWindow, CameraOptions.PerspectiveCameraOptions);
         camera.SetZoom(2);
